@@ -1,65 +1,72 @@
-// import Streamer from './components/Streamer';
+import React, {createContext, useContext, useReducer} from "react";
+import Main from "./components/Main";
+import Header from "./components/Header";
+import AddSong from "./components/AddSong";
+import {Grid} from "@mui/material";
+import SongList from "./components/SongList";
+import SongPlayer from "./components/SongPlayer";
+import QueuedSongList from "./components/QueuedSongList";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import reducer from "./shared/reducer";
 
-import Dice from "./components/Dice";
-import React, {useEffect, useState} from "react";
+export const SongContext = createContext( {
+    song: {
+        "artist": "DavZ",
+        "duration": 2,
+        "id": "437c41a3-c333-441a-8839-527b91f1455d",
+        "thumbnail": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOVP.CFJS1g7eB09grBp4J1aGVQHgFo%26pid%3DApi&f=1",
+        "title": "Mindless",
+        "url": "https://www.youtube.com/watch?v=nwozXqASL7I"
+    },
+    isPlaying: false
+});
 
 function App() {
-    const [tenzies, setTenzies] = useState(false);
-    const [dice, setDice] = useState(allNewDice());
+    const initialSongState = useContext(SongContext)
+    const [state, dispatch] = useReducer(reducer, initialSongState);
 
-    useEffect(() => {
-        const isAllHeld = dice.every(die => die.isHeld === true);
-        const isAllSame = dice.every(die => dice[0].value === die.value);
-
-        if (isAllHeld && isAllSame){
-            setTenzies(true);
-            alert('You won')
-        }
-    }, [dice])
-
-    function generateNewDice() {
-        const num = Math.ceil(Math.random() * 6)
-        return {
-            value:num,
-            isHeld:false
-        }
-    }
-
-    function allNewDice() {
-            let newDice = [];
-            for (let i=0; i < 10; i++) {
-                newDice.push(generateNewDice())
-            }
-            return newDice;
-    }
-
-    function holdDice(id) {
-        dice[id].isHeld = !dice[id].isHeld;
-        setDice([...dice])
-    }
-
-    function rollDice() {
-        if (!tenzies) {
-            setDice(previousDice =>
-            previousDice.map(die =>
-                die.isHeld ? die : generateNewDice()
-            )
-        )  } else {
-            setTenzies(false);
-            setDice(allNewDice())
-        }
-    }
-
-    // const diceFaces =
+const greaterThan = useMediaQuery(theme => theme.breakpoints.up('md'))
+    console.log(greaterThan)
   return (
-      <main className={'bg-mainColor w-90 h-90 flex flex-col justify-center items-center align-middle p-20'}>
-          <h1 className={'text-2xl font-bold pb-2 px-2'}>Tenzies</h1>
-          <p className={' pb- px-2'}>Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
-          <div className={'grid grid-cols-5 pl-16 pr-8 gap-4 mt-3.5'}>
-              {dice.map((num, i) => <Dice key={i} value={num.value} isHeld={num.isHeld} holdDice={() => holdDice(i)}/>)}
-              </div>
-          <button className={'bg-blue-700 rounded-2xl w-40 text-white font-bold text-xl p-4 mt-7 hover:bg-violet-600 active:shadow focus:outline-none'} onClick={() => rollDice()}>{tenzies ? "New Game" : "Roll"}</button>
-      </main>
+      <SongContext.Provider value={{state, dispatch}}>
+          <Header/>
+          <Grid container spacing={3}>
+            <Grid
+                item
+                sm={12}
+                md={7}
+                style={{
+                    paddingTop: "3.5rem"
+                }}
+            >
+                <AddSong/>
+                <SongList/>
+            </Grid>
+              <Grid
+                  item
+                  sm={12}
+                  md={5}
+                  style={ greaterThan ? {
+                      position: "fixed",
+                      top: 70,
+                      right: 0,
+                      width: '100%'
+                  } :
+                      {
+                          position: "fixed",
+                          bottom: 0,
+                          left: 0,
+                          width: '100%'
+                      }
+              }
+              >
+                  <SongPlayer/>
+                  <QueuedSongList/>
+              </Grid>
+
+          </Grid>
+          <Main/>
+      </SongContext.Provider>
   );
 }
 
