@@ -4,24 +4,19 @@ import './App.css';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-// import { ThemeProvider} from "@mui/styles";
-// import darkTheme from "./css/theme";
+
 import {CssBaseline} from "@mui/material";
-import useMediaQuery from '@mui/material/useMediaQuery';
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import {ApolloProvider} from "@apollo/client";
 import client from "./graphql/client";
 
 
 function Home() {
-    // const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-
     const theme = React.useMemo(
         () =>
             createTheme({
                 palette: {
                     mode: 'dark'
-                    // prefersDarkMode ? 'dark' : 'light',
                 },
             }),
         [],

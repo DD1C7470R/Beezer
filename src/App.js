@@ -1,5 +1,4 @@
 import React, {createContext, useContext, useReducer} from "react";
-import Main from "./components/Main";
 import Header from "./components/Header";
 import AddSong from "./components/AddSong";
 import {Grid} from "@mui/material";
@@ -67,7 +66,6 @@ const greaterThan = useMediaQuery(theme => theme.breakpoints.up('md'))
               </Grid>
 
           </Grid>
-          <Main/>
       </SongContext.Provider>
   );
 }
