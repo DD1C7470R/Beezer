@@ -8,6 +8,8 @@ import SongPlayer from "./components/SongPlayer";
 import QueuedSongList from "./components/QueuedSongList";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import reducer from "./shared/reducer";
+import {useQuery} from "@apollo/client";
+import {GET_QUEUED_SONGS} from "./graphql/queries";
 
 export const SongContext = createContext( {
     song: {
@@ -24,9 +26,9 @@ export const SongContext = createContext( {
 function App() {
     const initialSongState = useContext(SongContext)
     const [state, dispatch] = useReducer(reducer, initialSongState);
+    const {data} = useQuery(GET_QUEUED_SONGS)
 
 const greaterThan = useMediaQuery(theme => theme.breakpoints.up('md'))
-    console.log(greaterThan)
   return (
       <SongContext.Provider value={{state, dispatch}}>
           <Header/>
@@ -61,7 +63,7 @@ const greaterThan = useMediaQuery(theme => theme.breakpoints.up('md'))
               }
               >
                   <SongPlayer/>
-                  <QueuedSongList/>
+                  <QueuedSongList data={data}/>
               </Grid>
 
           </Grid>

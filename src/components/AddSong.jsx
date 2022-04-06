@@ -57,7 +57,6 @@ function AddSong(props) {
 
     async function handleAddSong() {
         const {title, duration, artist, url, thumbnail} = song;
-        console.log('duration',duration)
 
         try{
             await addSong({
@@ -120,14 +119,10 @@ function AddSong(props) {
     useEffect(() => {
         const isPlayable = SoundCloudPlayer.canPlay(url) || YouTubePlayer.canPlay(url);
         setPlayable(isPlayable);
-        // handleEditSong();
         }, [url])
 ;
     function handleError(field) {
-        console.log('player', song[field], song[field].length)
-
         return song[field].length === 0
-            // .graphQLErrors[0].extensions.path.include(field)
     }
 
     const {thumbnail, title, artist} = song;

@@ -7,3 +7,9 @@ export const ADD_SONG = gql`
   }
 }
 `
+
+export const ADD_QUEUED_SONG = gql`
+    mutation addOrRemoveFromQueue($input: SongInput){
+    addOrRemoveFromQueue(input: $input) @client  
+   }
+`
