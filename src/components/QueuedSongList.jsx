@@ -2,7 +2,7 @@ import React from 'react';
 import {Avatar, Hidden, IconButton, Typography} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 import {makeStyles} from "@mui/styles";
-import {useMutation, useQuery} from "@apollo/client";
+import {useMutation} from "@apollo/client";
 import {ADD_QUEUED_SONG} from "../graphql/mutations";
 
 const useStyles = makeStyles(theme => ({
