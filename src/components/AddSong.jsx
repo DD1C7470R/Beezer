@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import '../css/card.css';
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, InputAdornment, TextField} from "@mui/material";
 import {AddBoxOutlined, Link} from "@mui/icons-material";
 import {makeStyles} from "@mui/styles";
@@ -40,7 +39,7 @@ function AddSong(props) {
     const [dialog, setDialog] = useState(false);
     const [url, setUrl] = useState('');
     const [playable, setPlayable] = useState(false);
-    const [addSong,   error] = useMutation(ADD_SONG)
+    const [addSong] = useMutation(ADD_SONG)
     const [song, setSong] = useState(DEFAULT_SONG)
 
     function handleDialog() {
