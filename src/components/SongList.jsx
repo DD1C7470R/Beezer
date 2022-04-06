@@ -68,7 +68,7 @@ function SongList(props) {
         useEffect(() => {
             const currentPlayingSong = state.isPlaying && id === state.song.id;
             setCurrentPlaying(currentPlayingSong);
-        }, [state.isPlaying, state.id, id])
+        }, [state.isPlaying, state.song.id, id])
 
         function handleTogglePlay() {
             dispatch({type: 'SET_SONG', payload: {song}})
