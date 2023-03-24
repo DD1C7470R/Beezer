@@ -1,2 +1,5 @@
 
 Test beezer https://beezer.netlify.app/
+
+
+# THIS APP IS CURRENTLY DOWN THE DATABASE IS HOSTED ON HASURA AND IS DOWN AT THE MOMENT 
